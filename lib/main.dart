@@ -17,7 +17,8 @@ class ExpensesApp extends StatelessWidget {
         useMaterial3: false,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.purple[300],
-          foregroundColor: Colors.white, //Cores dos botoes
+          foregroundColor: Colors.white,
+          titleTextStyle: TextStyle(fontFamily: 'Quicksand'), //Cores dos botoes
         ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
@@ -25,6 +26,7 @@ class ExpensesApp extends StatelessWidget {
           secondary: Colors.white,
           tertiary: Colors.blueGrey[400],
         ),
+        fontFamily: "Quicksand",
       ),
     );
   }
