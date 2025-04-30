@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myexpenses/components/transaction_form.dart';
 import 'package:myexpenses/components/transaction_list.dart';
@@ -11,6 +13,7 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePage createState() => _HomePage();
 }
 
@@ -53,11 +56,35 @@ class _HomePage extends State<HomePage> {
     });
   }
 
+  Widget _getIconButton(IconData icon, Function() fn) {
+    return Platform.isIOS
+        ? GestureDetector(onTap: fn, child: Icon(icon))
+        : IconButton(onPressed: fn, icon: Icon(icon));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _isLandScape =
+    final isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    final appBar = AppBar(
+
+    final iconList = Platform.isIOS ? CupertinoIcons.news : Icons.list;
+    final iconChart =
+        Platform.isIOS ? CupertinoIcons.chart_pie : Icons.pie_chart;
+
+    final List<Widget> actionsBar = [
+      _getIconButton(
+        Platform.isIOS ? CupertinoIcons.add : Icons.add,
+        () => _openTransactionFormModal(context),
+      ),
+      _getIconButton(Icons.engineering, () => {}),
+      if (isLandScape)
+        _getIconButton(
+          _showGraphBar ? iconList : iconChart,
+          () => setState(() => _showGraphBar = !_showGraphBar),
+        ),
+    ];
+
+    final PreferredSizeWidget appBar = AppBar(
       title: Text(
         "Despesas Pessoais",
         style: TextStyle(
@@ -67,60 +94,55 @@ class _HomePage extends State<HomePage> {
           color: Theme.of(context).appBarTheme.foregroundColor,
         ),
       ),
-      //Adicionando no menu uma acao baseada na funcao passada e no icone que representa
-      actions: <Widget>[
-        IconButton(
-          onPressed: () => _openTransactionFormModal(context),
-          icon: Icon(Icons.add),
-        ),
-        IconButton(onPressed: () => {}, icon: Icon(Icons.engineering)),
-        if (_isLandScape)
-          IconButton(
-            onPressed:
-                () => {
-                  setState(() {
-                    _showGraphBar = !_showGraphBar;
-                  }),
-                },
-            icon: Icon(_showGraphBar ? Icons.list : Icons.pie_chart),
-          ),
-      ],
+      actions: actionsBar,
     );
     final availableHeight =
         MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: appBar,
-      body: SingleChildScrollView(
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (_showGraphBar || !_isLandScape)
+            if (_showGraphBar || !isLandScape)
               Container(
-                height: availableHeight * (_isLandScape ? 0.7 : 0.2),
+                height: availableHeight * (isLandScape ? 0.7 : 0.2),
                 decoration: BoxDecoration(color: Colors.white),
                 child: Chart(_recentTransactions),
               ),
-            if (!_showGraphBar || !_isLandScape)
+            if (!_showGraphBar || !isLandScape)
               Container(
-                height: availableHeight * 0.8,
+                height: availableHeight * (isLandScape ? 1 : 0.8),
                 child: TransactionList(_transactions, _removeTransaction),
               ),
           ],
         ),
       ),
-      //Aiciona um botato na parte de baixo da tela automaticamente
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _openTransactionFormModal(context),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-        child: Icon(Icons.add),
-      ),
-      //Posiciona o botao aonde for necessario na tela
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Despesas Pessoais'),
+            trailing: Row(mainAxisSize: MainAxisSize.min, children: actionsBar),
+          ),
+          child: bodyPage,
+        )
+        : Scaffold(
+          backgroundColor: Colors.white,
+          appBar: appBar,
+          body: bodyPage,
+          //Aiciona um botato na parte de baixo da tela automaticamente
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _openTransactionFormModal(context),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+            child: Icon(Icons.add),
+          ),
+          //Posiciona o botao aonde for necessario na tela
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        );
   }
 }

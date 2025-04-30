@@ -7,7 +7,7 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final void Function(String) onRemove;
 
-  const TransactionList(this.transactions, this.onRemove);
+  const TransactionList(this.transactions, this.onRemove, {super.key});
 
   Widget handlerRenderNoTransaction(BuildContext context) {
     return LayoutBuilder(
@@ -96,11 +96,17 @@ class TransactionList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Theme.of(context).colorScheme.primary,
-                          onPressed: () => onRemove(item.id),
-                        ),
+                        MediaQuery.of(context).size.width > 480
+                            ? TextButton.icon(
+                              icon: Icon(Icons.delete),
+                              onPressed: () => onRemove(item.id),
+                              label: Text("Excluir"),
+                            )
+                            : IconButton(
+                              icon: Icon(Icons.delete),
+                              color: Theme.of(context).colorScheme.primary,
+                              onPressed: () => onRemove(item.id),
+                            ),
                       ],
                     ),
                   ),
