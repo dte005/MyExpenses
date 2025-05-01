@@ -13,7 +13,8 @@ class AdaptativeTextField extends StatelessWidget {
   final AdaptativeStyle? style;
   final double fixed = 10;
 
-  AdaptativeTextField({
+  const AdaptativeTextField({
+    super.key,
     this.label,
     this.keyboardType,
     this.onChange,
