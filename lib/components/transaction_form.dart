@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import './adaptative_button.dart';
+import './adaptative_style.dart';
+import './adaptative_text_field.dart';
 
 class TransactionForm extends StatefulWidget {
   final Function(String, double, DateTime) onSubmit;
@@ -27,7 +29,7 @@ class _TransactionForm extends State<TransactionForm> {
     widget.onSubmit(title, value, _selectedDate);
   }
 
-  _showDatePicker() {
+  void _showDatePicker() {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -55,19 +57,18 @@ class _TransactionForm extends State<TransactionForm> {
           ),
           child: Column(
             children: <Widget>[
-              TextField(
-                decoration: InputDecoration(labelText: 'Título'),
-                //onSubmitted executa a submissao do formulario ao finalizar
-                onSubmitted: (_) => _onSubmit(),
+              AdaptativeTextField(
+                label: "Título",
+                onChange: _onSubmit,
                 controller: titleController,
+                style: AdaptativeStyle(padding: 20, margin: 20),
               ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Valor R\$'),
-                // numberWithOptions  => da a possibilidade tanto no android quanto IOS escolher casas decimais
+              AdaptativeTextField(
+                label: "Valor R\$",
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
-                //onSubmitted executa a submissao do formulario ao finalizar
-                onSubmitted: (_) => _onSubmit(),
+                onChange: _onSubmit,
                 controller: valueController,
+                style: AdaptativeStyle(padding: 20, margin: 20),
               ),
               Container(
                 height: 70,
@@ -90,16 +91,6 @@ class _TransactionForm extends State<TransactionForm> {
                   AdaptativeButton(
                     label: 'Nova transação',
                     onPressed: _onSubmit,
-                  ),
-                  ElevatedButton(
-                    onPressed: _onSubmit,
-                    child: Text(
-                      'Nova transação',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ],
               ),

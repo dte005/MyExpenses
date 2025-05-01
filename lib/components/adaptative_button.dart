@@ -14,8 +14,11 @@ class AdaptativeButton extends StatelessWidget {
     return (Platform.isIOS
         ? CupertinoButton(
           onPressed: onPressed,
-          child: Text(this.label!),
-          color: Theme.of(context).primaryColor,
+          sizeStyle: CupertinoButtonSize.small,
+          color: Theme.of(context).appBarTheme.backgroundColor,
+          borderRadius: BorderRadius.circular(5),
+          focusColor: Theme.of(context).primaryColor,
+          child: Text(label!, style: TextStyle(color: Colors.white)),
         )
         : ElevatedButton(
           onPressed: onPressed,
