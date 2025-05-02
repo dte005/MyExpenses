@@ -23,16 +23,18 @@ class AdaptativeTextField extends StatelessWidget {
   });
 
   AdaptativeStyle checkingStyle(AdaptativeStyle? style) {
-    return style ?? AdaptativeStyle.position(10, 10, 10);
+    return style ?? AdaptativeStyle.position(fixed, fixed, fixed);
   }
 
   @override
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? Padding(
-          padding: EdgeInsets.only(bottom: checkingStyle(style).margin ?? 10),
+          padding: EdgeInsets.only(
+            bottom: checkingStyle(style).margin ?? fixed,
+          ),
           child: CupertinoTextField(
-            padding: EdgeInsets.all(checkingStyle(style).padding ?? 10),
+            padding: EdgeInsets.all(checkingStyle(style).padding ?? fixed),
             keyboardType: keyboardType,
             onSubmitted: (_) => onChange!(),
             controller: controller,
@@ -40,7 +42,9 @@ class AdaptativeTextField extends StatelessWidget {
           ),
         )
         : Padding(
-          padding: EdgeInsets.only(bottom: checkingStyle(style).margin ?? 10),
+          padding: EdgeInsets.only(
+            bottom: checkingStyle(style).margin ?? fixed,
+          ),
           child: TextField(
             decoration: InputDecoration(labelText: label),
             keyboardType: keyboardType,

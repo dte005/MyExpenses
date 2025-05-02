@@ -18,13 +18,16 @@ class AdaptativeButton extends StatelessWidget {
           color: Theme.of(context).appBarTheme.backgroundColor,
           borderRadius: BorderRadius.circular(5),
           focusColor: Theme.of(context).primaryColor,
-          child: Text(label!, style: TextStyle(color: Colors.white)),
+          child: Text(label!, style: const TextStyle(color: Colors.white)),
         )
         : ElevatedButton(
           onPressed: onPressed,
           child: Text(
-            'Nova transação',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            label!,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ));
   }

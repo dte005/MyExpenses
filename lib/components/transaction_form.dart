@@ -47,14 +47,16 @@ class _TransactionForm extends State<TransactionForm> {
                 label: "Título",
                 onChange: _onSubmit,
                 controller: titleController,
-                style: AdaptativeStyle(padding: 20, margin: 20),
+                style: const AdaptativeStyle(padding: 20, margin: 20),
               ),
               AdaptativeTextField(
                 label: "Valor R\$",
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 onChange: _onSubmit,
                 controller: valueController,
-                style: AdaptativeStyle(padding: 20, margin: 20),
+                style: const AdaptativeStyle(padding: 20, margin: 20),
               ),
               AdaptativeDatePicker(
                 selectedDate: _selectedDate,

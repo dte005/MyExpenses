@@ -15,7 +15,7 @@ class TransactionList extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(color: Colors.white),
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: <Widget>[
                 Container(
@@ -57,14 +57,17 @@ class TransactionList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Theme.of(context).colorScheme.primary,
                         width: 2,
                       ),
                     ),
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Text(
                       'R\$ ${item.value.toStringAsFixed(2)}',
                       style: TextStyle(
@@ -79,7 +82,7 @@ class TransactionList extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         item.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -98,12 +101,12 @@ class TransactionList extends StatelessWidget {
                       children: <Widget>[
                         MediaQuery.of(context).size.width > 480
                             ? TextButton.icon(
-                              icon: Icon(Icons.delete),
+                              icon: const Icon(Icons.delete),
+                              label: const Text("Excluir"),
                               onPressed: () => onRemove(item.id),
-                              label: Text("Excluir"),
                             )
                             : IconButton(
-                              icon: Icon(Icons.delete),
+                              icon: const Icon(Icons.delete),
                               color: Theme.of(context).colorScheme.primary,
                               onPressed: () => onRemove(item.id),
                             ),

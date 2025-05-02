@@ -48,7 +48,7 @@ class AdaptativeDatePicker extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.calendar_month),
                 color: Theme.of(context).colorScheme.primary,
-                tooltip: 'Seletione uma data',
+                tooltip: 'Selecione uma data',
                 onPressed: () => _showDatePicker(context),
               ),
             ],
