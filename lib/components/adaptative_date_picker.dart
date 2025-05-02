@@ -8,7 +8,7 @@ class AdaptativeDatePicker extends StatelessWidget {
   final DateTime selectedDate;
   final Function(DateTime) onDateChanged;
 
-  AdaptativeDatePicker({
+  const AdaptativeDatePicker({
     super.key,
     required this.selectedDate,
     required this.onDateChanged,

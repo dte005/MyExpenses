@@ -3,10 +3,10 @@ class AdaptativeStyle {
   final double? fontSize;
   final double? margin;
 
-  AdaptativeStyle({
+  const AdaptativeStyle({
     this.padding,
     this.fontSize,
     this.margin,
   }); //positional sempre é obrigatório
-  AdaptativeStyle.position(this.padding, this.fontSize, this.margin);
+  const AdaptativeStyle.position(this.padding, this.fontSize, this.margin);
 }
