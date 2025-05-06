@@ -12,8 +12,9 @@ class AdaptativeTextField extends StatelessWidget {
   final String? label;
   final AdaptativeStyle? style;
   final double fixed = 10;
+  final AdaptativeStyle fixedStyle = AdaptativeStyle(padding: 10, margin: 10);
 
-  const AdaptativeTextField({
+  AdaptativeTextField({
     super.key,
     this.label,
     this.keyboardType,
@@ -22,19 +23,19 @@ class AdaptativeTextField extends StatelessWidget {
     this.style,
   });
 
-  AdaptativeStyle checkingStyle(AdaptativeStyle? style) {
-    return style ?? AdaptativeStyle.position(fixed, fixed, fixed);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? Padding(
           padding: EdgeInsets.only(
-            bottom: checkingStyle(style).margin ?? fixed,
+            bottom:
+                AdaptativeStyle.checkingStyle(style, fixedStyle).margin ??
+                fixed,
           ),
           child: CupertinoTextField(
-            padding: EdgeInsets.all(checkingStyle(style).padding ?? fixed),
+            padding: EdgeInsets.all(
+              AdaptativeStyle.checkingStyle(style, fixedStyle).padding ?? fixed,
+            ),
             keyboardType: keyboardType,
             onSubmitted: (_) => onChange!(),
             controller: controller,
@@ -43,7 +44,9 @@ class AdaptativeTextField extends StatelessWidget {
         )
         : Padding(
           padding: EdgeInsets.only(
-            bottom: checkingStyle(style).margin ?? fixed,
+            bottom:
+                AdaptativeStyle.checkingStyle(style, fixedStyle).margin ??
+                fixed,
           ),
           child: TextField(
             decoration: InputDecoration(labelText: label),

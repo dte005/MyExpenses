@@ -53,6 +53,7 @@ class TransactionList extends StatelessWidget {
           itemBuilder: (ctx, index) {
             final item = transactions[index];
             return Card(
+              key: GlobalObjectKey(item),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

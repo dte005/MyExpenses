@@ -3,10 +3,10 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myexpenses/components/transaction_form.dart';
-import 'package:myexpenses/components/transaction_list.dart';
-import 'package:myexpenses/models/transaction.dart';
 
+import './components/transaction_form.dart';
+import './components/transaction_list.dart';
+import './models/transaction.dart';
 import 'components/chart.dart';
 
 class HomePage extends StatefulWidget {
@@ -96,6 +96,7 @@ class _HomePage extends State<HomePage> {
       ),
       actions: actionsBar,
     );
+
     final availableHeight =
         MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
@@ -125,7 +126,7 @@ class _HomePage extends State<HomePage> {
     return Platform.isIOS
         ? CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            middle: Text('Despesas Pessoais'),
+            middle: const Text('Despesas Pessoais'),
             trailing: Row(mainAxisSize: MainAxisSize.min, children: actionsBar),
           ),
           child: bodyPage,
@@ -139,7 +140,7 @@ class _HomePage extends State<HomePage> {
             onPressed: () => _openTransactionFormModal(context),
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
           //Posiciona o botao aonde for necessario na tela
           floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
